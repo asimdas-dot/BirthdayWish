@@ -29,54 +29,54 @@ class BirthdayApp {
     // Quiz Questions Data
     this.quizData = [
       {
-        question: "Where did we first meet?",
+        question: "What do you like most about me?",
         options: [
-          { text: "At a cozy coffee shop on a rainy afternoon", note: "Where every conversation felt like home ☕" },
-          { text: "Through mutual smiles on a sunny day", note: "The universe had the best timing ✨" },
-          { text: "In a quiet book corner", note: "Straight out of a romance novel 📖" },
-          { text: "The stars aligned in the most unexpected way", note: "The best day of my life, without doubt 💕" }
+          { text: "My care" },
+          { text: "The way I talk" },
+          { text: "My smile" },
+          { text: "All of these ❤️" }
         ],
-        feedback: "A moment etched in my heart forever! 🥰"
+        feedback: "Aww, all those little things about me make me who I am ❤️"
       },
       {
-        question: "What is my favorite thing about you?",
+        question: "Which moment of ours do you remember the most?",
         options: [
-          { text: "Your infectious, heartwarming laugh", note: "It lights up every single room!" },
-          { text: "Your sharp wit and playful little jokes", note: "You always keep me smiling!" },
-          { text: "Your pure, endlessly compassionate heart", note: "The gentlest soul I've ever known." },
-          { text: "All of the above (and a million more things)", note: "Because you are simply irreplaceable! ❤️" }
+          { text: "Our first meeting" },
+          { text: "Our first conversation" },
+          { text: "The time we spent together" },
+          { text: "All of these 🥰" }
         ],
-        feedback: "Everything about you is pure perfection! ✨"
+        feedback: "Every moment with you is special to me too 🥰"
       },
       {
-        question: "What would I choose for our perfect date?",
+        question: "Which of my habits do you find the cutest?",
         options: [
-          { text: "Stargazing under cozy blankets with warm chai", note: "Just you, me, and the infinite sky 🌌" },
-          { text: "A scenic long drive listening to our playlist", note: "Singing our hearts out together 🚗" },
-          { text: "Cooking dinner together and laughing at messes", note: "The sweetest kitchen memories 🍝" },
-          { text: "Anywhere in the world, as long as it's with you", note: "Every place is magical with you 💕" }
+          { text: "Texting you again and again" },
+          { text: "Checking on you" },
+          { text: "Teasing you" },
+          { text: "All of these 😄" }
         ],
-        feedback: "With you, even doing nothing is everything! 💖"
+        feedback: "I'll keep texting, checking on you, and teasing you 😄"
       },
       {
-        question: "What is my absolute favorite notification?",
+        question: "Where would you most like to travel with me?",
         options: [
-          { text: "'Your food delivery has arrived'", note: "Close second, but nope! 🍕" },
-          { text: "'Monai: 1 new message' or 'Incoming Call...'", note: "My heart skips a beat every time! 💓" },
-          { text: "'Weekend is officially here!'", note: "Nice, but you're better! 🎉" },
-          { text: "'Battery 100% Charged'", note: "Not even close! ⚡" }
+          { text: "Sea beach 🌊" },
+          { text: "Mountains ⛰️" },
+          { text: "Kolkata outing 🌆" },
+          { text: "Long trip ❤️" }
         ],
-        feedback: "Seeing your name always makes my entire day! 💕"
+        feedback: "Let's make that trip together one day ❤️"
       },
       {
-        question: "What would I rather have?",
+        question: "If I could fulfill one wish of yours today, what would you choose?",
         options: [
-          { text: "A lifetime supply of chocolate and coffee", note: "Tempting, but..." },
-          { text: "An all-expenses-paid trip around the world", note: "Only if you're holding my hand!" },
-          { text: "Endless quiet moments holding your hand", note: "Always, in every lifetime." },
-          { text: "Winning the biggest lottery jackpot", note: "I already won the jackpot when I met you! 🌟" }
+          { text: "A special day with me" },
+          { text: "A surprise 🎁" },
+          { text: "Going somewhere together" },
+          { text: "Your own special wish ❤️" }
         ],
-        feedback: "You are and will always be my greatest blessing, Monai! 💍"
+        feedback: "I hope your wish comes true ✨"
       }
     ];
 
@@ -181,30 +181,45 @@ class BirthdayApp {
     const musicBtn = document.getElementById('music-toggle-btn');
     const finalMusicBtn = document.getElementById('final-music-btn');
 
-    const toggleHandler = () => {
-      const isPlaying = window.birthdayAudio.toggleMusic();
+    const updateMusicControls = (isPlaying) => {
       if (isPlaying) {
-        musicBtn.classList.add('playing');
-        document.getElementById('music-text').textContent = 'Playing';
+        if (musicBtn) musicBtn.classList.add('playing');
+        const musicText = document.getElementById('music-text');
+        if (musicText) musicText.textContent = 'Playing';
         if (finalMusicBtn) finalMusicBtn.textContent = 'Pause Music';
       } else {
-        musicBtn.classList.remove('playing');
-        document.getElementById('music-text').textContent = 'Music';
+        if (musicBtn) musicBtn.classList.remove('playing');
+        const musicText = document.getElementById('music-text');
+        if (musicText) musicText.textContent = 'Music';
         if (finalMusicBtn) finalMusicBtn.textContent = 'Play Music';
+      }
+    };
+
+    const showMusicError = (error) => {
+      console.error('Background music could not be played.', error);
+      if (musicBtn) musicBtn.title = 'Unable to play the birthday song. Check that the audio file is available.';
+      if (finalMusicBtn) finalMusicBtn.textContent = 'Music unavailable';
+      updateMusicControls(false);
+    };
+
+    const toggleHandler = async () => {
+      try {
+        const isPlaying = await window.birthdayAudio.toggleMusic();
+        updateMusicControls(isPlaying);
+      } catch (error) {
+        showMusicError(error);
       }
     };
 
     if (musicBtn) musicBtn.addEventListener('click', toggleHandler);
     if (finalMusicBtn) finalMusicBtn.addEventListener('click', toggleHandler);
 
-    // Auto-start ambient music on first user touch anywhere if not yet started
+    // Start the birthday song on the first user interaction.
     const firstTouchHandler = () => {
       if (window.birthdayAudio && !window.birthdayAudio.isBGMPlaying) {
-        window.birthdayAudio.startBGM();
-        if (musicBtn) {
-          musicBtn.classList.add('playing');
-          document.getElementById('music-text').textContent = 'Playing';
-        }
+        window.birthdayAudio.startBGM()
+          .then(() => updateMusicControls(true))
+          .catch(showMusicError);
       }
       window.removeEventListener('click', firstTouchHandler);
       window.removeEventListener('touchstart', firstTouchHandler);

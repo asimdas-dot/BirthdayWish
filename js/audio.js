@@ -8,6 +8,10 @@ class BirthdayAudioEngine {
     this.ctx = null;
     this.isMuted = false;
     this.isBGMPlaying = false;
+    this.bgmAudio = new Audio('assets/audio/happy-birthday-baby-panda.mp3');
+    this.bgmAudio.loop = true;
+    this.bgmAudio.volume = 0.35;
+    this.bgmPlayPromise = null;
     this.bgmTimer = null;
     this.bgmStep = 0;
     this.masterGain = null;
@@ -58,26 +62,33 @@ class BirthdayAudioEngine {
     }
   }
 
-  toggleMusic() {
-    this.init();
+  async toggleMusic() {
     if (this.isBGMPlaying) {
       this.pauseBGM();
       return false;
     } else {
-      this.startBGM();
+      await this.startBGM();
       return true;
     }
   }
 
-  startBGM() {
-    this.init();
+  async startBGM() {
     if (this.isBGMPlaying) return;
-    this.isBGMPlaying = true;
-    this.playNextBgmNote();
+    if (!this.bgmPlayPromise) {
+      this.bgmPlayPromise = this.bgmAudio.play()
+        .then(() => {
+          this.isBGMPlaying = true;
+        })
+        .finally(() => {
+          this.bgmPlayPromise = null;
+        });
+    }
+    await this.bgmPlayPromise;
   }
 
   pauseBGM() {
     this.isBGMPlaying = false;
+    this.bgmAudio.pause();
     if (this.bgmTimer) {
       clearTimeout(this.bgmTimer);
       this.bgmTimer = null;
