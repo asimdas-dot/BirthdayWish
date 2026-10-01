@@ -626,10 +626,12 @@ html, body {
 }
 
 .candle-flame {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% - 2px);
   width: 24px;
   height: 48px;
-  margin-bottom: -4px;
+  margin-left: -12px;
   filter: drop-shadow(0 0 16px rgba(255, 170, 40, 0.8));
   animation: flameFlicker 1.8s infinite ease-in-out;
 }
@@ -658,13 +660,18 @@ html, body {
 }
 
 .candle-wick {
+  position: absolute;
+  top: -8px;
+  left: 50%;
   width: 3px;
   height: 12px;
+  margin-left: -1.5px;
   background: #332211;
   border-radius: 2px;
 }
 
 .candle-stick {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
