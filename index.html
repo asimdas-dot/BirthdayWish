@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Happy Birthday Niharika ✨ | With Love, Rohan</title>
+  <meta name="description" content="A special birthday gift experience created with love for Niharika by Rohan.">
+  <meta name="theme-color" content="#FAF3F0">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Dancing+Script:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Sacramento&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Background Canvas for Floating Sparkles & Hearts -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Confetti Canvas for Celebratory Moments -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Global Floating Audio Control Button -->
+  <header class="app-topbar" id="app-topbar">
+    <div class="topbar-status">
+      <span class="status-indicator"></span>
+      <span class="topbar-title" id="topbar-title">Niharika's Birthday ✨</span>
+    </div>
+    <button class="music-toggle-btn" id="music-toggle-btn" aria-label="Toggle Background Music" title="Play romantic ambient music">
+      <div class="music-icon-wrap">
+        <svg class="music-note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+        <span class="music-bars">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+          <span class="bar bar-3"></span>
+        </span>
+      </div>
+      <span class="music-text" id="music-text">Music</span>
+    </button>
+  </header>
+
+  <!-- Main Mobile-First Application Container Frame -->
+  <main class="app-wrapper">
+    <div class="mobile-frame" id="mobile-frame">
+
+      <!-- ==============================================
+           SCREEN 1: PASSCODE SCREEN
+           ============================================== -->
+      <section class="screen active" id="screen-1" data-screen="1">
+        <div class="screen-content passcode-layout">
+          <div class="arched-photo-container">
+            <div class="arch-frame">
+              <img src="assets/images/avatar.jpg" alt="Niharika" class="arch-photo" id="arch-avatar-img">
+              <div class="arch-glow"></div>
+            </div>
+            <div class="passcode-header">
+              <span class="delicate-pill">Special Day ✨</span>
+              <h1 class="romantic-name">Niharika</h1>
+              <p class="passcode-subtitle">Enter your secret 4-digit code to unlock your birthday surprise</p>
+            </div>
+          </div>
+
+          <!-- 4-Digit Indicator Dots -->
+          <div class="passcode-dots-wrapper" id="passcode-dots">
+            <span class="code-dot" data-index="0"></span>
+            <span class="code-dot" data-index="1"></span>
+            <span class="code-dot" data-index="2"></span>
+            <span class="code-dot" data-index="3"></span>
+          </div>
+
+          <div class="passcode-hint" id="passcode-hint">
+            <span>💡 Hint: Rohan's secret code or today's date (Try <strong>2026</strong>)</span>
+          </div>
+
+          <!-- Custom 4-digit Numeric Keypad -->
+          <div class="keypad-container" id="custom-keypad">
+            <div class="keypad-row">
+              <button class="key-btn" data-key="1">1</button>
+              <button class="key-btn" data-key="2">2</button>
+              <button class="key-btn" data-key="3">3</button>
+            </div>
+            <div class="keypad-row">
+              <button class="key-btn" data-key="4">4</button>
+              <button class="key-btn" data-key="5">5</button>
+              <button class="key-btn" data-key="6">6</button>
+            </div>
+            <div class="keypad-row">
+              <button class="key-btn" data-key="7">7</button>
+              <button class="key-btn" data-key="8">8</button>
+              <button class="key-btn" data-key="9">9</button>
+            </div>
+            <div class="keypad-row">
+              <button class="key-btn action-key" data-key="clear" title="Clear">C</button>
+              <button class="key-btn" data-key="0">0</button>
+              <button class="key-btn action-key" data-key="delete" title="Backspace">⌫</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 2: MAKE A WISH SCREEN (Dark Night Theme)
+           ============================================== -->
+      <section class="screen dark-theme" id="screen-2" data-screen="2">
+        <div class="night-sky-background">
+          <div class="stars-cluster"></div>
+          <div class="twinkle-star s1">✦</div>
+          <div class="twinkle-star s2">✧</div>
+          <div class="twinkle-star s3">✦</div>
+          <div class="twinkle-star s4">★</div>
+          <div class="twinkle-star s5">✧</div>
+        </div>
+
+        <div class="screen-content wish-layout" id="wish-tap-area">
+          <div class="wish-header">
+            <span class="celestial-badge">Midnight Whispers 🌙</span>
+            <h2 class="wish-title">Make a Wish...</h2>
+            <p class="wish-subtext">Close your eyes, take a gentle breath, and whisper what your heart wants most for this year.</p>
+          </div>
+
+          <!-- Central Glowing Flickering Candle -->
+          <div class="single-candle-stage">
+            <div class="candle-glow-radial"></div>
+            <div class="candle-stick">
+              <div class="candle-wick"></div>
+              <div class="candle-flame">
+                <span class="flame-core"></span>
+                <span class="flame-halo"></span>
+              </div>
+            </div>
+            <div class="candle-base-dish"></div>
+          </div>
+
+          <div class="wish-footer">
+            <div class="pulse-touch-indicator">
+              <span class="touch-ring"></span>
+              <span class="touch-text">Tap anywhere to seal your wish ✨</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 3: BLOW THE CANDLES SCREEN
+           ============================================== -->
+      <section class="screen" id="screen-3" data-screen="3">
+        <div class="screen-content cake-layout">
+          <div class="cake-header">
+            <span class="delicate-pill">Sweet Celebration 🎂</span>
+            <h2 class="romantic-title">Blow the Candles!</h2>
+            <p class="screen-subtext">Make it official! Blow into your microphone, tap the cake, or use the button below.</p>
+          </div>
+
+          <!-- Multi-tiered Birthday Cake with Animated Flames -->
+          <div class="cake-display-container" id="cake-interactive-box">
+            <!-- Rising Smoke Container (shown when blown out) -->
+            <div class="smoke-container" id="cake-smoke-box"></div>
+
+            <div class="birthday-cake" id="birthday-cake">
+              <!-- Cake Candles Layer -->
+              <div class="cake-candles-row" id="cake-candles-row">
+                <div class="cake-candle candle-1">
+                  <div class="cake-flame active"><span class="flame-inner"></span></div>
+                  <div class="cake-wick"></div>
+                  <div class="cake-candle-body"></div>
+                </div>
+                <div class="cake-candle candle-2">
+                  <div class="cake-flame active"><span class="flame-inner"></span></div>
+                  <div class="cake-wick"></div>
+                  <div class="cake-candle-body"></div>
+                </div>
+                <div class="cake-candle candle-3">
+                  <div class="cake-flame active"><span class="flame-inner"></span></div>
+                  <div class="cake-wick"></div>
+                  <div class="cake-candle-body"></div>
+                </div>
+                <div class="cake-candle candle-4">
+                  <div class="cake-flame active"><span class="flame-inner"></span></div>
+                  <div class="cake-wick"></div>
+                  <div class="cake-candle-body"></div>
+                </div>
+                <div class="cake-candle candle-5">
+                  <div class="cake-flame active"><span class="flame-inner"></span></div>
+                  <div class="cake-wick"></div>
+                  <div class="cake-candle-body"></div>
+                </div>
+              </div>
+
+              <!-- Top Tier -->
+              <div class="cake-tier tier-top">
+                <div class="cream-frosting">
+                  <span class="drip d1"></span>
+                  <span class="drip d2"></span>
+                  <span class="drip d3"></span>
+                  <span class="drip d4"></span>
+                </div>
+                <div class="tier-toppings">🍓 🌸 🍓</div>
+              </div>
+
+              <!-- Middle Tier -->
+              <div class="cake-tier tier-middle">
+                <div class="cream-frosting">
+                  <span class="drip d5"></span>
+                  <span class="drip d6"></span>
+                  <span class="drip d7"></span>
+                  <span class="drip d8"></span>
+                </div>
+                <div class="cake-piping"></div>
+              </div>
+
+              <!-- Base Tier -->
+              <div class="cake-tier tier-bottom">
+                <div class="tier-ribbon">Happy Birthday Niharika 💕</div>
+              </div>
+
+              <!-- Cake Plate Stand -->
+              <div class="cake-stand"></div>
+            </div>
+          </div>
+
+          <div class="cake-action-area">
+            <button class="secondary-btn" id="mic-blow-btn" type="button">🎙️ Use Microphone</button>
+            <p class="blow-tip" id="mic-blow-status" role="status" aria-live="polite">Allow microphone access, then blow gently to put out the candles.</p>
+            <p class="blow-tip">You can also tap directly on the cake.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 4: BALLOON POP SCREEN
+           ============================================== -->
+      <section class="screen" id="screen-4" data-screen="4">
+        <div class="screen-content balloon-layout">
+          <div class="balloon-header">
+            <span class="delicate-pill">A Secret Message 🎈</span>
+            <h2 class="romantic-title">Pop the Balloons!</h2>
+            <div class="counter-badge" id="balloon-counter">0 / 4 popped</div>
+            <p class="screen-subtext">Tap each pastel balloon to pop it and reveal what's hidden inside.</p>
+          </div>
+
+          <!-- Revealed Words Row Preview -->
+          <div class="words-reveal-banner" id="words-banner">
+            <span class="word-slot" id="slot-0">_</span>
+            <span class="word-slot" id="slot-1">_</span>
+            <span class="word-slot" id="slot-2">_</span>
+            <span class="word-slot" id="slot-3">_</span>
+          </div>
+
+          <!-- Balloons Interactive Field -->
+          <div class="balloons-floating-field" id="balloons-field">
+            <!-- Balloon 1 -->
+            <div class="balloon-wrapper b1" data-index="0" data-word="You">
+              <div class="balloon pastel-pink">
+                <div class="balloon-shine"></div>
+                <span class="balloon-inner-text">?</span>
+                <div class="balloon-knot"></div>
+                <div class="balloon-string"></div>
+              </div>
+              <div class="balloon-word-hidden">You</div>
+            </div>
+
+            <!-- Balloon 2 -->
+            <div class="balloon-wrapper b2" data-index="1" data-word="Are">
+              <div class="balloon pastel-lavender">
+                <div class="balloon-shine"></div>
+                <span class="balloon-inner-text">?</span>
+                <div class="balloon-knot"></div>
+                <div class="balloon-string"></div>
+              </div>
+              <div class="balloon-word-hidden">Are</div>
+            </div>
+
+            <!-- Balloon 3 -->
+            <div class="balloon-wrapper b3" data-index="2" data-word="So">
+              <div class="balloon pastel-peach">
+                <div class="balloon-shine"></div>
+                <span class="balloon-inner-text">?</span>
+                <div class="balloon-knot"></div>
+                <div class="balloon-string"></div>
+              </div>
+              <div class="balloon-word-hidden">So</div>
+            </div>
+
+            <!-- Balloon 4 -->
+            <div class="balloon-wrapper b4" data-index="3" data-word="Special!">
+              <div class="balloon pastel-champagne">
+                <div class="balloon-shine"></div>
+                <span class="balloon-inner-text">?</span>
+                <div class="balloon-knot"></div>
+                <div class="balloon-string"></div>
+              </div>
+              <div class="balloon-word-hidden">Special!</div>
+            </div>
+          </div>
+
+          <!-- Continue trigger (shown when 4/4 popped) -->
+          <div class="balloon-continue-wrap hidden" id="balloon-continue-wrap">
+            <button class="primary-btn glow-btn" id="balloon-continue-btn">
+              <span>Continue to Your Gift</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 5: POLAROID PHOTO CARD SCREEN
+           ============================================== -->
+      <section class="screen" id="screen-5" data-screen="5">
+        <div class="screen-content polaroid-layout">
+          <div class="polaroid-header">
+            <span class="delicate-pill">Captured Moment 📸</span>
+          </div>
+
+          <!-- Polaroid Photo Card -->
+          <div class="polaroid-card-wrapper" id="polaroid-card">
+            <div class="washi-tape washi-top"></div>
+            <div class="polaroid-inner">
+              <div class="polaroid-photo-frame">
+                <img src="assets/images/celebration.jpg" alt="Happy Birthday Niharika" class="polaroid-img">
+                <div class="polaroid-photo-overlay"></div>
+              </div>
+              <div class="polaroid-caption-area">
+                <h2 class="script-celebration">Happy Birthday Niharika!</h2>
+                <p class="polaroid-note">"To the girl who lights up every single room she walks into."</p>
+                <div class="polaroid-hearts">♡ ♡ ♡</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="polaroid-actions">
+            <button class="secondary-btn" id="repop-confetti-btn">
+              <span>🎊 Shower More Confetti</span>
+            </button>
+            <button class="primary-btn" id="polaroid-next-btn">
+              <span>A Personal Letter for You</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 6: PERSONAL LETTER SCREEN
+           ============================================== -->
+      <section class="screen" id="screen-6" data-screen="6">
+        <div class="screen-content letter-layout">
+          <div class="letter-top-meta">
+            <span class="delicate-pill">From Rohan's Heart 💌</span>
+          </div>
+
+          <!-- Parchment Paper Card Layout with Gold Tape -->
+          <div class="parchment-letter-card" id="parchment-card">
+            <div class="gold-washi-tape tape-left"></div>
+            <div class="gold-washi-tape tape-right"></div>
+
+            <div class="letter-inner-content">
+              <h3 class="letter-salutation">My Dearest Niharika,</h3>
+              <p class="letter-intro">Here are all the reasons you are my favourite person in the entire world:</p>
+
+              <ul class="reasons-list" id="reasons-list">
+                <li class="reason-item" data-idx="0">
+                  <span class="reason-bullet">🌸</span>
+                  <span class="reason-text">The unmistakable sparkle in your eyes whenever you talk about what you truly love.</span>
+                </li>
+                <li class="reason-item" data-idx="1">
+                  <span class="reason-bullet">✨</span>
+                  <span class="reason-text">How your genuine laughter can instantly turn the heaviest day into light and joy.</span>
+                </li>
+                <li class="reason-item" data-idx="2">
+                  <span class="reason-bullet">🌷</span>
+                  <span class="reason-text">Your boundless kindness and the gentle, calming energy you bring into every conversation.</span>
+                </li>
+                <li class="reason-item" data-idx="3">
+                  <span class="reason-bullet">☕</span>
+                  <span class="reason-text">How comfortable, safe, and utterly natural silence feels whenever I'm beside you.</span>
+                </li>
+                <li class="reason-item" data-idx="4">
+                  <span class="reason-bullet">💫</span>
+                  <span class="reason-text">The sweet, adorable expressions you make when you are playfully thinking or teasing me.</span>
+                </li>
+                <li class="reason-item" data-idx="5">
+                  <span class="reason-bullet">💖</span>
+                  <span class="reason-text">Simply because being in your life makes the world feel infinitely brighter, softer, and complete.</span>
+                </li>
+              </ul>
+
+              <div class="letter-signoff">
+                <p class="signoff-closing">Always & forever your biggest cheerleader,</p>
+                <p class="signoff-signature">Rohan 💕</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="letter-actions">
+            <button class="secondary-btn" id="reveal-all-btn">
+              <span>✨ Reveal all at once</span>
+            </button>
+            <button class="primary-btn" id="letter-next-btn">
+              <span>A Secret Scratch Card</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 7: SCRATCH CARD SCREEN
+           ============================================== -->
+      <section class="screen" id="screen-7" data-screen="7">
+        <div class="screen-content scratch-layout">
+          <div class="scratch-header">
+            <span class="delicate-pill">Interactive Secret 🪄</span>
+            <h2 class="romantic-title">Scratch to Reveal</h2>
+            <p class="screen-subtext">Rub your finger or cursor over the shimmering card below to uncover a secret memory!</p>
+          </div>
+
+          <!-- Scratch Card Interactive Container -->
+          <div class="scratch-card-box" id="scratch-card-box">
+            <!-- Hidden Image Beneath -->
+            <div class="scratch-underlayer">
+              <img src="assets/images/scratch_secret.jpg" alt="Under the fairy lights" class="scratch-under-img" id="scratch-secret-img">
+              <div class="scratch-revealed-caption">
+                <span class="star-accent">✨</span>
+                <p class="reveal-quote">"Under the fairy lights with you — my favorite place in the world."</p>
+              </div>
+            </div>
+
+            <!-- Canvas Scratch Overlay -->
+            <canvas id="scratch-canvas" class="scratch-canvas"></canvas>
+          </div>
+
+          <div class="scratch-progress-info">
+            <span class="scratch-percent-label" id="scratch-percent-label">Scratched: 0%</span>
+            <div class="scratch-bar-track">
+              <div class="scratch-bar-fill" id="scratch-bar-fill"></div>
+            </div>
+          </div>
+
+          <div class="scratch-actions">
+            <button class="primary-btn" id="scratch-next-btn" disabled>
+              <span>Watch Something Bloom</span>
+              <span class="btn-arrow">→</span>
+            </button>
+            <button class="text-link-btn" id="skip-scratch-btn">Auto-reveal secret ✨</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 8: FLOWER BLOOM SCREEN
+           ============================================== -->
+      <section class="screen" id="screen-8" data-screen="8">
+        <div class="screen-content bloom-layout">
+          <div class="bloom-header">
+            <span class="delicate-pill">Grow with Love 🌸</span>
+            <h2 class="romantic-title">Watch Something Bloom</h2>
+            <p class="screen-subtext">Tap the flower button to give it water & love. Help it blossom to full beauty (12 taps)!</p>
+            <div class="bloom-badge" id="bloom-counter-badge">
+              <span class="bloom-taps" id="bloom-tap-count">0</span> / 12 blossoms
+            </div>
+          </div>
+
+          <!-- Interactive Blooming Flower SVG Stage -->
+          <div class="flower-bloom-stage" id="flower-bloom-stage">
+            <div class="bloom-sparkles-layer" id="bloom-sparkles"></div>
+            
+            <svg class="bloom-svg" viewBox="0 0 320 380" id="bloom-svg" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#4F7942" />
+                  <stop offset="100%" stop-color="#7BB661" />
+                </linearGradient>
+                <linearGradient id="petalGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FFD1DC" />
+                  <stop offset="50%" stop-color="#F8A5B8" />
+                  <stop offset="100%" stop-color="#E2738A" />
+                </linearGradient>
+                <linearGradient id="petalGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FFF0F5" />
+                  <stop offset="60%" stop-color="#FFB6C1" />
+                  <stop offset="100%" stop-color="#DB7093" />
+                </linearGradient>
+                <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#FFF8DC" />
+                  <stop offset="60%" stop-color="#FFD700" />
+                  <stop offset="100%" stop-color="#FFA500" />
+                </radialGradient>
+                <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="4" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+              </defs>
+
+              <!-- Soil / Pot Mound -->
+              <ellipse cx="160" cy="350" rx="90" ry="18" fill="#8B5A2B" opacity="0.3" />
+              <path d="M100,350 Q160,335 220,350 Q160,365 100,350" fill="#6B4423" />
+
+              <!-- Stem -->
+              <path id="flower-stem" d="M160,345 Q155,270 160,195" fill="none" stroke="url(#stemGrad)" stroke-width="6" stroke-linecap="round" />
+
+              <!-- Leaves -->
+              <g id="flower-leaves">
+                <path id="leaf-left" d="M158,280 Q110,270 95,245 Q125,245 158,270" fill="#689F38" opacity="0" />
+                <path id="leaf-right" d="M162,240 Q210,230 225,205 Q195,205 162,230" fill="#558B2F" opacity="0" />
+              </g>
+
+              <!-- Bloom Flower Head Group (scaled and rotated as stages advance) -->
+              <g id="flower-head" transform="translate(160, 195) scale(0.2)">
+                <!-- Outer Petals Layer -->
+                <g id="outer-petals">
+                  <path class="bloom-petal p-1" d="M0,0 C-30,-60 -50,-100 0,-110 C50,-100 30,-60 0,0" fill="url(#petalGrad1)" />
+                  <path class="bloom-petal p-2" d="M0,0 C-30,-60 -50,-100 0,-110 C50,-100 30,-60 0,0" fill="url(#petalGrad1)" transform="rotate(45)" />
+                  <path class="bloom-petal p-3" d="M0,0 C-30,-60 -50,-100 0,-110 C50,-100 30,-60 0,0" fill="url(#petalGrad1)" transform="rotate(90)" />
+                  <path class="bloom-petal p-4" d="M0,0 C-30,-60 -50,-100 0,-110 C50,-100 30,-60 0,0" fill="url(#petalGrad1)" transform="rotate(135)" />
+                  <path class="bloom-petal p-5" d="M0,0 C-30,-60 -50,-100 0,-110 C50,-100 30,-60 0,0" fill="url(#petalGrad1)" transform="rotate(180)" />
+                  <path class="bloom-petal p-6" d="M0,0 C-30,-60 -50,-100 0,-110 C50,-100 30,-60 0,0" fill="url(#petalGrad1)" transform="rotate(225)" />
+                  <path class="bloom-petal p-7" d="M0,0 C-30,-60 -50,-100 0,-110 C50,-100 30,-60 0,0" fill="url(#petalGrad1)" transform="rotate(270)" />
+                  <path class="bloom-petal p-8" d="M0,0 C-30,-60 -50,-100 0,-110 C50,-100 30,-60 0,0" fill="url(#petalGrad1)" transform="rotate(315)" />
+                </g>
+
+                <!-- Inner Petals Layer -->
+                <g id="inner-petals">
+                  <path class="bloom-petal ip-1" d="M0,0 C-20,-45 -35,-75 0,-85 C35,-75 20,-45 0,0" fill="url(#petalGrad2)" transform="rotate(22.5)" />
+                  <path class="bloom-petal ip-2" d="M0,0 C-20,-45 -35,-75 0,-85 C35,-75 20,-45 0,0" fill="url(#petalGrad2)" transform="rotate(67.5)" />
+                  <path class="bloom-petal ip-3" d="M0,0 C-20,-45 -35,-75 0,-85 C35,-75 20,-45 0,0" fill="url(#petalGrad2)" transform="rotate(112.5)" />
+                  <path class="bloom-petal ip-4" d="M0,0 C-20,-45 -35,-75 0,-85 C35,-75 20,-45 0,0" fill="url(#petalGrad2)" transform="rotate(157.5)" />
+                  <path class="bloom-petal ip-5" d="M0,0 C-20,-45 -35,-75 0,-85 C35,-75 20,-45 0,0" fill="url(#petalGrad2)" transform="rotate(202.5)" />
+                  <path class="bloom-petal ip-6" d="M0,0 C-20,-45 -35,-75 0,-85 C35,-75 20,-45 0,0" fill="url(#petalGrad2)" transform="rotate(247.5)" />
+                  <path class="bloom-petal ip-7" d="M0,0 C-20,-45 -35,-75 0,-85 C35,-75 20,-45 0,0" fill="url(#petalGrad2)" transform="rotate(292.5)" />
+                  <path class="bloom-petal ip-8" d="M0,0 C-20,-45 -35,-75 0,-85 C35,-75 20,-45 0,0" fill="url(#petalGrad2)" transform="rotate(337.5)" />
+                </g>
+
+                <!-- Center Core -->
+                <circle cx="0" cy="0" r="24" fill="url(#centerGlow)" filter="url(#softGlow)" />
+                <circle cx="0" cy="0" r="14" fill="#FFA500" opacity="0.8" />
+              </g>
+            </svg>
+          </div>
+
+          <div class="bloom-controls">
+            <button class="flower-tap-btn" id="flower-tap-btn" aria-label="Tap to nourish the flower">
+              <span class="flower-tap-icon">🌸</span>
+              <span class="flower-tap-label">Tap to Blossom</span>
+            </button>
+            <p class="bloom-status-msg" id="bloom-status-msg">A tiny seedling waiting for your touch...</p>
+          </div>
+
+          <div class="bloom-finish-wrap hidden" id="bloom-finish-wrap">
+            <button class="primary-btn glow-btn" id="bloom-continue-btn">
+              <span>Take Rohan's Fun Quiz!</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 9: 5-QUESTION QUIZ SEQUENCE
+           ============================================== -->
+      <section class="screen" id="screen-9" data-screen="9">
+        <div class="screen-content quiz-layout">
+          <div class="quiz-header">
+            <div class="quiz-top-row">
+              <span class="delicate-pill">Memory Quiz 💖</span>
+              <span class="quiz-progress-text" id="quiz-progress-text">Question 1 of 5</span>
+            </div>
+            <div class="quiz-progress-track">
+              <div class="quiz-progress-bar" id="quiz-progress-bar"></div>
+            </div>
+          </div>
+
+          <!-- Dynamic Quiz Card Container -->
+          <div class="quiz-card-stage" id="quiz-card-stage">
+            <div class="quiz-card" id="current-quiz-card">
+              <h3 class="quiz-question-title" id="quiz-question-text">Where did we first meet?</h3>
+              <p class="quiz-instruction">Choose your answer:</p>
+
+              <div class="quiz-options-grid" id="quiz-options-container">
+                <!-- Option buttons generated by JS -->
+              </div>
+
+              <!-- Sweet Feedback Notification Pill -->
+              <div class="quiz-feedback-box hidden" id="quiz-feedback-box">
+                <span class="feedback-icon" id="feedback-icon">💕</span>
+                <span class="feedback-msg" id="feedback-msg">Awww, exactly right!</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiz Completion Banner -->
+          <div class="quiz-complete-card hidden" id="quiz-complete-card">
+            <div class="complete-badge">100% Love Match! 🏆</div>
+            <h3 class="complete-title">You Know My Heart Inside Out</h3>
+            <p class="complete-subtext">Every memory with you is carved into my favourite moments, Niharika.</p>
+            <button class="primary-btn glow-btn" id="quiz-next-btn">
+              <span>Open Our Memory Gallery</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 10: OUR MEMORIES GALLERY (Carousel)
+           ============================================== -->
+      <section class="screen" id="screen-10" data-screen="10">
+        <div class="screen-content memories-layout">
+          <div class="memories-header">
+            <span class="delicate-pill">Our Beautiful Journey 📷</span>
+            <h2 class="romantic-title">Our Memories</h2>
+            <div class="gallery-progress-badge" id="gallery-counter">1 of 5</div>
+          </div>
+
+          <!-- Polaroid Photo Carousel Frame -->
+          <div class="polaroid-carousel-container" id="memories-carousel-container">
+            <div class="washi-tape carousel-washi"></div>
+
+            <div class="carousel-track-wrapper">
+              <div class="carousel-track" id="carousel-track">
+                <!-- Slide 1 -->
+                <div class="carousel-slide active" data-slide="0">
+                  <div class="slide-polaroid">
+                    <div class="slide-img-box">
+                      <img src="assets/images/memory1.jpg" alt="Cozy Cafe Date" class="slide-photo">
+                    </div>
+                    <div class="slide-meta">
+                      <h4 class="slide-title">Cozy Cafe Mornings</h4>
+                      <p class="slide-caption">"Where two warm coffees turned into endless laughter and smiles."</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="carousel-slide" data-slide="1">
+                  <div class="slide-polaroid">
+                    <div class="slide-img-box">
+                      <img src="assets/images/memory2.jpg" alt="Golden Beach Sunset" class="slide-photo">
+                    </div>
+                    <div class="slide-meta">
+                      <h4 class="slide-title">Sunset by the Shore</h4>
+                      <p class="slide-caption">"Barefoot along the gentle waves, matching the sky's pastel glow."</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="carousel-slide" data-slide="2">
+                  <div class="slide-polaroid">
+                    <div class="slide-img-box">
+                      <img src="assets/images/memory3.jpg" alt="Mountain Roadtrip" class="slide-photo">
+                    </div>
+                    <div class="slide-meta">
+                      <h4 class="slide-title">Wild Mountain Roadtrips</h4>
+                      <p class="slide-caption">"Windows rolled down, singing out loud to every favorite song."</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="carousel-slide" data-slide="3">
+                  <div class="slide-polaroid">
+                    <div class="slide-img-box">
+                      <img src="assets/images/memory4.jpg" alt="Under Fairy Lights" class="slide-photo">
+                    </div>
+                    <div class="slide-meta">
+                      <h4 class="slide-title">Under the Fairy Lights</h4>
+                      <p class="slide-caption">"Holding you close while the rest of the world faded into silence."</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 5 -->
+                <div class="carousel-slide" data-slide="4">
+                  <div class="slide-polaroid">
+                    <div class="slide-img-box">
+                      <img src="assets/images/memory5.jpg" alt="Birthday Magic" class="slide-photo">
+                    </div>
+                    <div class="slide-meta">
+                      <h4 class="slide-title">Your Birthday Magic</h4>
+                      <p class="slide-caption">"Every year with you is a gift I cherish more than words can say."</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dots Indicator -->
+            <div class="carousel-dots" id="carousel-dots">
+              <span class="carousel-dot active" data-slide-target="0"></span>
+              <span class="carousel-dot" data-slide-target="1"></span>
+              <span class="carousel-dot" data-slide-target="2"></span>
+              <span class="carousel-dot" data-slide-target="3"></span>
+              <span class="carousel-dot" data-slide-target="4"></span>
+            </div>
+          </div>
+
+          <!-- Carousel Controls -->
+          <div class="carousel-navigation-bar">
+            <button class="carousel-nav-btn prev-btn" id="carousel-prev-btn" aria-label="Previous Memory">
+              <span>← Back</span>
+            </button>
+            <button class="carousel-nav-btn next-btn" id="carousel-next-btn" aria-label="Next Memory">
+              <span>Next →</span>
+            </button>
+          </div>
+
+          <div class="gallery-proceed-wrap">
+            <button class="primary-btn glow-btn" id="memories-final-btn">
+              <span>Read Rohan's Final Note</span>
+              <span class="btn-arrow">💌</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           SCREEN 11: FINAL NOTE SCREEN
+           ============================================== -->
+      <section class="screen" id="screen-11" data-screen="11">
+        <div class="screen-content final-note-layout">
+          <div class="final-note-card" id="final-card">
+            <div class="card-seal-ribbon">💝</div>
+            
+            <div class="final-card-header">
+              <span class="card-recipient-sub">A message from the heart</span>
+              <h2 class="final-card-title">For Niharika</h2>
+              <div class="gold-divider"></div>
+            </div>
+
+            <div class="final-card-body">
+              <p class="final-paragraph">
+                Happy Birthday to my favorite person in the entire world.
+              </p>
+              <p class="final-paragraph">
+                Thank you for bringing so much peace, laughter, and effortless beauty into my days. Being able to celebrate you today is my greatest joy.
+              </p>
+              <p class="final-paragraph highlight">
+                May this new chapter bring you endless adventures, deep laughter, the fulfillment of all your dearest dreams, and a million reasons to smile just like you do.
+              </p>
+              <div class="final-signoff-block">
+                <span class="signoff-note">with all my love,</span>
+                <span class="signoff-author">Rohan</span>
+                <span class="signoff-hearts">💕 ✨ 🌹</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls at bottom of screen 11 -->
+          <div class="final-screen-actions">
+            <button class="replay-btn" id="replay-experience-btn">
+              <span class="replay-icon">↺</span>
+              <span class="replay-text">Replay Experience</span>
+            </button>
+            
+            <div class="final-music-panel">
+              <span class="panel-icon">🎵</span>
+              <span class="panel-label">Ambient Music Playing</span>
+              <button class="panel-toggle-btn" id="final-music-btn">Toggle Sound</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Modular Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
