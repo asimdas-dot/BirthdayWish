@@ -1,5 +1,5 @@
 /**
- * NIHARIKA'S BIRTHDAY APP - AUDIO SYNTHESIZER & SOUND ENGINE
+ * MONAI'S BIRTHDAY APP - AUDIO SYNTHESIZER & SOUND ENGINE
  * Powered by Web Audio API for 100% reliable, zero-latency, offline-ready romantic audio.
  */
 

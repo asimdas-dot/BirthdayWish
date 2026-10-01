@@ -1,5 +1,5 @@
 /**
- * NIHARIKA'S BIRTHDAY APP - CANVAS CONFETTI & AMBIENT HEARTS ENGINE
+ * MONAI'S BIRTHDAY APP - CANVAS CONFETTI & AMBIENT HEARTS ENGINE
  * High-performance 60fps lightweight particles for celebratory bursts & romantic ambience.
  */
 

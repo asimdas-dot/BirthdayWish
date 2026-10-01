@@ -1,5 +1,5 @@
 /**
- * NIHARIKA'S BIRTHDAY APP - MAIN APPLICATION CONTROLLER
+ * MONAI'S BIRTHDAY APP - MAIN APPLICATION CONTROLLER
  * Orchestrates 11 interactive screens, touch/drag events, state management, and transitions.
  */
 
@@ -24,7 +24,7 @@ class BirthdayApp {
     this.maxBloom = 12;
     this.quizIndex = 0;
     this.carouselIndex = 0;
-    this.totalSlides = 5;
+    this.totalSlides = 0;
 
     // Quiz Questions Data
     this.quizData = [
@@ -62,7 +62,7 @@ class BirthdayApp {
         question: "What is my absolute favorite notification?",
         options: [
           { text: "'Your food delivery has arrived'", note: "Close second, but nope! 🍕" },
-          { text: "'Niharika: 1 new message' or 'Incoming Call...'", note: "My heart skips a beat every time! 💓" },
+          { text: "'Monai: 1 new message' or 'Incoming Call...'", note: "My heart skips a beat every time! 💓" },
           { text: "'Weekend is officially here!'", note: "Nice, but you're better! 🎉" },
           { text: "'Battery 100% Charged'", note: "Not even close! ⚡" }
         ],
@@ -76,7 +76,7 @@ class BirthdayApp {
           { text: "Endless quiet moments holding your hand", note: "Always, in every lifetime." },
           { text: "Winning the biggest lottery jackpot", note: "I already won the jackpot when I met you! 🌟" }
         ],
-        feedback: "You are and will always be my greatest blessing, Niharika! 💍"
+        feedback: "You are and will always be my greatest blessing, Monai! 💍"
       }
     ];
 
@@ -242,6 +242,9 @@ class BirthdayApp {
   }
 
   handlePasscodeInput(key) {
+    const hint = document.getElementById('passcode-hint');
+    if (hint) hint.innerHTML = '<span>💡 Enter Monai\'s special 4-digit birthday code.</span>';
+
     if (key === 'clear') {
       this.passcode = [];
       this.updatePasscodeDots();
@@ -274,6 +277,7 @@ class BirthdayApp {
     dots.forEach((dot, index) => {
       if (index < this.passcode.length) {
         dot.classList.add('filled');
+        dot.classList.remove('error');
       } else {
         dot.classList.remove('filled', 'error');
       }
@@ -281,10 +285,20 @@ class BirthdayApp {
   }
 
   validatePasscode() {
-    // Welcoming design: any 4-digit code works (or secret codes like 2026/1402/1024),
-    // automatically validates to provide a delightful, stress-free birthday surprise!
     const enteredCode = this.passcode.join('');
     const dots = document.querySelectorAll('#passcode-dots .code-dot');
+    if (enteredCode !== '2007') {
+      dots.forEach(dot => dot.classList.add('error'));
+      const hint = document.getElementById('passcode-hint');
+      if (hint) hint.textContent = 'That code is not quite right. Please try again.';
+      setTimeout(() => {
+        if (this.currentScreen !== 1 || this.passcode.join('') !== enteredCode) return;
+        this.passcode = [];
+        this.updatePasscodeDots();
+        if (hint) hint.innerHTML = '<span>💡 Enter Monai\'s special 4-digit birthday code.</span>';
+      }, 700);
+      return;
+    }
 
     if (window.birthdayAudio) window.birthdayAudio.playSuccessChime();
     if (window.particleEngine) window.particleEngine.fireConfetti(window.innerWidth / 2, window.innerHeight * 0.35, 30);
@@ -323,7 +337,6 @@ class BirthdayApp {
      SCREEN 3: BLOW THE CANDLES SCREEN
      ========================================================================= */
   setupScreen3BlowCandles() {
-    const cakeBox = document.getElementById('cake-interactive-box');
     const micBtn = document.getElementById('mic-blow-btn');
     const micStatus = document.getElementById('mic-blow-status');
 
@@ -366,12 +379,11 @@ class BirthdayApp {
       }, 1900);
     };
 
-    if (cakeBox) cakeBox.addEventListener('click', blowHandler);
     if (micBtn) {
       micBtn.addEventListener('click', () => {
         if (this.microphoneStream) {
           this.stopMicrophoneBlowDetection();
-          if (micStatus) micStatus.textContent = 'Microphone off. Tap the cake whenever you’re ready.';
+          if (micStatus) micStatus.textContent = 'Microphone off. Turn it back on when you’re ready.';
           return;
         }
         this.startMicrophoneBlowDetection(blowHandler, micBtn, micStatus);
@@ -382,11 +394,11 @@ class BirthdayApp {
   async startMicrophoneBlowDetection(blowHandler, micBtn, micStatus) {
     if (this.candlesBlown || this.microphoneStream) return;
     if (!window.isSecureContext) {
-      if (micStatus) micStatus.textContent = 'Microphone access requires a secure page (HTTPS or localhost). You can still tap the cake.';
+      if (micStatus) micStatus.textContent = 'Microphone access requires a secure page (HTTPS or localhost).';
       return;
     }
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      if (micStatus) micStatus.textContent = 'Microphone access is not available in this browser. You can still tap the cake.';
+      if (micStatus) micStatus.textContent = 'Microphone access is not available in this browser.';
       return;
     }
 
@@ -407,7 +419,7 @@ class BirthdayApp {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!AudioContext) {
         this.stopMicrophoneBlowDetection();
-        if (micStatus) micStatus.textContent = 'Microphone audio analysis is not supported here. You can still tap the cake.';
+        if (micStatus) micStatus.textContent = 'Microphone audio analysis is not supported in this browser.';
         return;
       }
 
@@ -446,11 +458,11 @@ class BirthdayApp {
       this.stopMicrophoneBlowDetection();
       if (micStatus) {
         if (error.name === 'NotAllowedError' || error.name === 'SecurityError') {
-          micStatus.textContent = 'Microphone permission was denied. Allow access in your browser settings, or tap the cake.';
+          micStatus.textContent = 'Microphone permission was denied. Allow access in your browser settings and try again.';
         } else if (error.name === 'NotFoundError') {
-          micStatus.textContent = 'No microphone was found. You can still tap the cake.';
+          micStatus.textContent = 'No microphone was found.';
         } else {
-          micStatus.textContent = `Could not start the microphone (${error.message}). You can still tap the cake.`;
+          micStatus.textContent = `Could not start the microphone (${error.message}).`;
         }
       }
     } finally {
@@ -483,7 +495,7 @@ class BirthdayApp {
     }
     if (wasListening && !this.candlesBlown) {
       const micStatus = document.getElementById('mic-blow-status');
-      if (micStatus) micStatus.textContent = 'Microphone off. Tap the cake whenever you’re ready.';
+      if (micStatus) micStatus.textContent = 'Microphone off. Turn it back on when you’re ready.';
     }
   }
 
@@ -920,6 +932,7 @@ class BirthdayApp {
     const finalBtn = document.getElementById('memories-final-btn');
     const dots = document.querySelectorAll('.carousel-dot');
     const container = document.getElementById('memories-carousel-container');
+    this.totalSlides = document.querySelectorAll('.carousel-slide').length;
 
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
@@ -975,6 +988,8 @@ class BirthdayApp {
         }
       }, { passive: true });
     }
+
+    this.updateCarousel(this.carouselIndex);
   }
 
   updateCarousel(index) {
@@ -1039,6 +1054,8 @@ class BirthdayApp {
     }
     const micStatus = document.getElementById('mic-blow-status');
     if (micStatus) micStatus.textContent = 'Allow microphone access, then blow gently to put out the candles.';
+    const passcodeHint = document.getElementById('passcode-hint');
+    if (passcodeHint) passcodeHint.innerHTML = '<span>💡 Enter Monai\'s special 4-digit birthday code.</span>';
 
     // Reset balloons
     const balloons = document.querySelectorAll('.balloon-wrapper');

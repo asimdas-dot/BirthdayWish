@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NIHARIKA'S BIRTHDAY GIFT APP - AESTHETIC ROMANTIC STYLING
+   MONAI'S BIRTHDAY GIFT APP - AESTHETIC ROMANTIC STYLING
    ========================================================================== */
 
 /* --- Custom Design Tokens & Color System --- */
@@ -1696,7 +1696,9 @@ html, body {
 }
 
 .carousel-slide {
+  flex: 0 0 100%;
   min-width: 100%;
+  width: 100%;
   box-sizing: border-box;
   padding: 14px 14px 20px 14px;
   display: flex;
